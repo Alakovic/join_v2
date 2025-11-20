@@ -242,7 +242,7 @@ a {
 }
 
 .active_span:before {
-    content: url("/assets/icons/summary_icon.png");
+    content: url("../assets/icons/summary_icon.png");
     background-color: var(--menuHoverColor);
     display: inline-block;
     vertical-align: middle;
@@ -296,7 +296,7 @@ a {
     .active_span::before {
         background-color: transparent;
         color: #4589FF !important;
-        content: url("/assets/icons/summary_icon_blue.svg");
+        content: url("../assets/icons/summary_icon_blue.svg");
         margin-right: 0;
         height: 24px;
         width: 24px;
