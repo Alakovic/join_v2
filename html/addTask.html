@@ -19,37 +19,40 @@
 
   <body onload="init()">
     <header class="header">
-       <div class="header_content">
-      <div class="logo-container">
-        <img src="../assets/icons/logo.svg" alt="Logo" />
-      </div>
-      <div class="header-right">
-        <span>Kanban Project Management Tool</span>
-        <a class="help-link" href="help.html"
-          ><img src="../assets/icons/help.svg" alt="Help"
-        /></a>
-        <div
-          onclick="toggleProfileMenu ()"
-          class="icon-wrapper"
-          id="icon-wrapper"
-        >
-          <div class="icon-container" id="icon-container">G</div>
+      <div class="header_content">
+        <div class="logo-container">
+          <img src="../assets/icons/logo.svg" alt="Logo" />
+        </div>
+        <div class="header-right">
+          <span>Kanban Project Management Tool</span>
+          <a class="help-link" href="help.html"
+            ><img src="../assets/icons/help.svg" alt="Help"
+          /></a>
+          <div
+            onclick="toggleProfileMenu ()"
+            class="icon-wrapper"
+            id="icon-wrapper"
+          >
+            <div class="icon-container" id="icon-container">G</div>
+          </div>
+        </div>
+        <div class="profile_menu" id="profile_menu">
+          <ul class="profile_menu_list">
+            <li class="profile_menu_item help-item">
+              <a href="help.html">Help</a>
+            </li>
+            <li class="profile_menu_item">
+              <a href="legalNotice.html">Legal Notice</a>
+            </li>
+            <li class="profile_menu_item">
+              <a href="privacyPolicy.html">Privacy Policy</a>
+            </li>
+            <li class="profile_menu_item">
+              <a href="../index.html">Log out</a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="profile_menu" id="profile_menu">
-        <ul class="profile_menu_list">
-          <li class="profile_menu_item help-item">
-            <a href="help.html">Help</a>
-          </li>
-          <li class="profile_menu_item">
-            <a href="legalNotice.html">Legal Notice</a>
-          </li>
-          <li class="profile_menu_item">
-            <a href="privacyPolicy.html">Privacy Policy</a>
-          </li>
-          <li class="profile_menu_item"><a href="../index.html">Log out</a></li>
-        </ul>
-      </div></div>
     </header>
     <div class="content-wrapper">
       <section class="add-task-content d_flex">
@@ -163,7 +166,7 @@
                     <label for="nativ-date-input" onclick="showPicker()">
                       <img
                         class="date-picker-icon pointer"
-                        src="/assets/icons/event.png"
+                        src="../assets/icons/event.png"
                         alt="Open the date picker"
                       />
                     </label>
@@ -322,12 +325,11 @@
                       alt="Close the 'Category' dropdown"
                     />
                   </div>
-                  
                 </div>
                 <div
-                    class="validation-add-task-form"
-                    id="category-validation"
-                  ></div>
+                  class="validation-add-task-form"
+                  id="category-validation"
+                ></div>
                 <div
                   class="option-category pointer"
                   onclick="stopPropagation(event)"
@@ -393,7 +395,7 @@
                   </div>
                 </div>
                 <ul
-                  class="added-subtasks d-f-column d_flex  gap-8 custom-list"
+                  class="added-subtasks d-f-column d_flex gap-8 custom-list"
                   id="added-subtasks"
                 ></ul>
               </div>
@@ -422,13 +424,13 @@
         </div>
       </section>
     </div>
-    <script src="/script/header.js"></script>
-    <script src="/script/script.js"></script>
-    <script src="/script/addTask_DD.js"></script>
-    <script src="/script/addTask_subtask.js"></script>
-    <script src="/script/addTask_api.js"></script>
-    <script src="/script/template_addTask.js"></script>
-    <script src="/script/addTask.js"></script>
-    <script src="/script/addTask_date.js"></script>
+    <script src="../script/header.js"></script>
+    <script src="../script/script.js"></script>
+    <script src="../script/addTask_DD.js"></script>
+    <script src="../script/addTask_subtask.js"></script>
+    <script src="../script/addTask_api.js"></script>
+    <script src="../script/template_addTask.js"></script>
+    <script src="../script/addTask.js"></script>
+    <script src="../script/addTask_date.js"></script>
   </body>
 </html>

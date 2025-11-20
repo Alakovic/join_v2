@@ -20,10 +20,10 @@ function togglePassword ( id, icon ) {
     const passwordIcon = document.getElementById( icon );
     if ( passwordInput.type === "password" ) {
         passwordInput.type = "text";
-        passwordIcon.src = "/assets/icons/visibility.png";
+        passwordIcon.src = "../assets/icons/visibility.png";
     } else {
         passwordInput.type = "password";
-        passwordIcon.src = "/assets/icons/visibility_off.png";
+        passwordIcon.src = "../assets/icons/visibility_off.png";
     }
 }
 
