@@ -43,11 +43,11 @@ function validateLoginForm() {
 }
 
 /**
- * redirects the user to the summary.html after succesful login
+ * redirects the user to the summary.html after successful login
  */
 function redirectToSummary() {
   localStorage.setItem("isLoggedIn", "true");
-  window.location.href = "/html/summary.html";
+  window.location.href = "../html/summary.html";
 }
 
 
