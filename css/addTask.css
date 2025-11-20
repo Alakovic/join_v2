@@ -143,17 +143,17 @@ li[contenteditable="true"] {
 }
 
 .btn-icon-shell {
-  background: url(../assets/icons/clear.svg) no-repeat center;
+  background: url('../assets/icons/clear.svg') no-repeat center;
   transition: 100ms ease-in-out;
   margin-bottom: 2px;
 }
 
 .clear-form-btn:hover .btn-icon-shell {
-  background: url(../assets/icons/cross_hover.svg) no-repeat center;
+  background: url('../assets/icons/cross_hover.svg') no-repeat center;
 }
 
 .clear-form-btn:active .btn-icon-shell {
-  background: url(../assets/icons/cross_click.svg) no-repeat center;
+  background: url('../assets/icons/cross_click.svg') no-repeat center;
 }
 
 .add-task-create-btn {
@@ -219,7 +219,7 @@ li[contenteditable="true"] {
 }
 
 .active_span:before {
-  content: url("/assets/icons/add_task_icon.png");
+  content: url("../assets/icons/add_task_icon.png");
   background-color: var(--menuHoverColor);
   display: inline-block;
   vertical-align: middle;

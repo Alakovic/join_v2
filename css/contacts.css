@@ -502,7 +502,7 @@ input.error {
 }
 
 .active_span:before {
-    content: url("/assets/icons/contacts_icon.png");
+    content: url("../assets/icons/contacts_icon.png");
     background-color: var(--menuHoverColor);
     display: inline-block;
     vertical-align: middle;

@@ -268,7 +268,7 @@
 }
 
 .active_span:before {
-    content: url("/assets/icons/board_icon.png");
+    content: url("../assets/icons/board_icon.png");
     background-color: var(--menuHoverColor);
     display: inline-block;
     vertical-align: middle;
