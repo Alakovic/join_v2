@@ -15,7 +15,7 @@ body {
 }
 
 .join_logo {
-    background-image: url(/assets/icons/favicon.png);
+    background-image: url('../assets/icons/favicon.png');
     background-repeat: no-repeat;
     background-color: white;
     background-position: center;
@@ -29,7 +29,7 @@ body {
 }
 
 .join_logo_start {
-    background-image: url(/assets/icons/join_icon_white.png);
+    background-image: url('../assets/icons/join_icon_white.png');
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;

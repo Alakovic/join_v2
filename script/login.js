@@ -2,7 +2,7 @@ loggedin = false;
 
 
 /**
- * init runs all function which are aquired to run onload of the html
+ * init runs all function which are required to run onload of the html
  */
 function init() {
   startAnimation()
