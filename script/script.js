@@ -8,11 +8,3 @@ function authLogIn () {
         redirectToLogin();
     }
 }
-
-
-/**
- * redirects user to login
- */
-function redirectToLogin () {
-    location.href = "../index.html";
-}

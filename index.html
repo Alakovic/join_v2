@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,68 +6,57 @@
     <title>Join</title>
     <link rel="icon" href="assets/icons/favicon.png" />
     <link rel="stylesheet" href="css/standart.css" />
-    <link rel="stylesheet" href="css/login.css" />
-    <script src="script/login.js"></script>
-    <script src="script/signup.js"></script>
-    <script src="script/script.js"></script>
+    <link rel="stylesheet" href="css/index.css" />
   </head>
 
-  <body onload="init()">
+  <body>
+    <div id="logo_animation_overlay">
+      <img src="assets/icons/logo.svg" alt="logo" />
+    </div>
     <div id="login_top">
-      <div id="animated_logo" class="join_logo_start"></div>
+      <div class="logo_start" id="animated_logo">
+        <img src="assets/icons/logo.svg" alt="logo" />
+      </div>
       <div id="to_signup">
         <p>Not a Join user?</p>
-        <a href="html/signup.html"><button>Sign up</button></a>
+        <a href="html/signup.html">Sign up</a>
       </div>
     </div>
-    <div id="main">
-      <div id="login_border">
-        <div id="login_container">
-          <h2>Log in</h2>
-          <form
-            id="login_form"
-            novalidate
-            action=""
-            onsubmit="login(); return false"
-          >
-            <div class="input_container">
-              <input required id="email" type="email" placeholder="Email" />
-              <img class="input_icon_email" src="assets/icons/mail.png" />
+    <div class="content">
+      <div class="welcome">
+        <h1>Welcome</h1>
+        <div class="blue-line"></div>
+        <p>
+          Pick the option that suits your role: create a request as a
+          stakeholder or log in if you're part of the team.
+        </p>
+        <div class="choose">
+          <div class="stakeholder">
+            <div class="question">
+              <img src="assets/icons/work.svg" alt="work" />
+              <p>Are you a stakeholder?</p>
             </div>
-            <div class="input_container">
-              <input
-                required
-                id="password"
-                type="password"
-                placeholder="Password"
-              />
-              <img
-                class="input_icon_password"
-                id="password_icon"
-                onclick="togglePassword('password', 'password_icon')"
-                src="assets/icons/visibility_off.png"
-              />
-              <p id="error_msg">
-                Check your email and password. Please try again.
-              </p>
+            <button onclick="location.href = 'html/stakeholder.html'">
+              Create request
+            </button>
+          </div>
+          <div class="member">
+            <div class="question">
+              <img src="assets/icons/member.svg" alt="member" />
+              <p>Are you a team member?</p>
             </div>
-            <div id="login_buttons">
-              <button type="submit">Log in</button>
-              <button
-                type="button"
-                onclick="redirectToSummary('guest')"
-                id="guest_button"
-              >
-                Guest log in
-              </button>
-            </div>
-          </form>
+            <button onclick="location.href = 'html/login.html'">
+              Member log in
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <div id="bottom_bar">
-      <a class="nav_link" href="html/privacyPolicy.html">Privacy Policy</a>
-      <a class="nav_link" href="html/legalNotice.html">Legal Notice</a>
-    </div>
+    <footer>
+      <div class="footer_content">
+        <a href="html/privacyPolicy.html">Privacy Policy</a>
+        <a href="html/legalNotice.html">Legal Notice</a>
+      </div>
+    </footer>
   </body>
 </html>

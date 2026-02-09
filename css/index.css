@@ -1,0 +1,182 @@
+body {
+  min-height: 100vh;
+  max-width: 1920px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #4589ff;
+}
+
+#logo_animation_overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4589ff;
+  z-index: 9999;
+  animation: overlayFade 1.1s ease forwards;
+}
+
+#logo_animation_overlay img {
+  width: 120px;
+  height: 120px;
+  animation: logoMove 1s ease forwards;
+}
+
+@keyframes logoMove {
+  0% {
+    transform: translate(0, 0) scale(1.5);
+  }
+
+  100% {
+    transform: translate(calc(-50vw + 110px), calc(-50vh + 110px)) scale(1);
+  }
+}
+
+@keyframes overlayFade {
+  0% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+#login_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+}
+
+.logo_start img {
+  width: 120px;
+  height: 120px;
+}
+
+#to_signup {
+  display: flex;
+  gap: 24px;
+  align-self: flex-start;
+  color: #ffffff;
+}
+
+#to_signup a {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#to_signup a:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.welcome {
+  width: 500px;
+  height: auto;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+h1 {
+  font-size: 25px;
+}
+
+.welcome p {
+  margin: 15px 0;
+}
+
+.choose {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.question {
+  display: flex;
+  gap: 8px;
+  color: #005dff;
+}
+
+.blue-line {
+  margin-top: 10px;
+  height: 2px;
+  width: 150px;
+  background-color: #4589ff;
+  border-radius: 2px;
+}
+
+.stakeholder button,
+.member button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.member button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.stakeholder button:hover {
+  background-color: #005dff;
+  cursor: pointer;
+}
+
+.stakeholder button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.stakeholder button {
+  background-color: #4589ff;
+  color: #fff;
+}
+
+.member button {
+  background-color: #fff;
+  color: #42526e;
+  border: 1px solid #42526e;
+}
+
+footer {
+  margin-top: auto;
+  padding: 50px;
+  text-align: center;
+}
+
+.footer_content {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+.footer_content a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer_content a:hover {
+  cursor: pointer;
+  scale: 1.1;
+}

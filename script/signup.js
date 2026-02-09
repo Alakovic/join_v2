@@ -1,6 +1,39 @@
 // signup.js
 
 let users = [];
+let passwordStarted = false;
+
+function initPasswordToggle() {
+  const passwordInput = document.getElementById("password");
+  const passwordIcon = document.getElementById("password_icon");
+
+  passwordInput.addEventListener("input", () => {
+    if (passwordInput.value.length > 0) {
+      passwordStarted = true;
+      passwordIcon.src = "../assets/icons/visibility_off.svg";
+    } else {
+      passwordStarted = false;
+      passwordIcon.src = "../assets/icons/lock.svg";
+      passwordInput.type = "password";
+    }
+  });
+}
+
+function initPasswordConfirmToggle() {
+  const passwordInput = document.getElementById("confirm_password");
+  const passwordIcon = document.getElementById("confirm_password_icon");
+
+  passwordInput.addEventListener("input", () => {
+    if (passwordInput.value.length > 0) {
+      passwordStarted = true;
+      passwordIcon.src = "../assets/icons/visibility_off.svg";
+    } else {
+      passwordStarted = false;
+      passwordIcon.src = "../assets/icons/lock.svg";
+      passwordInput.type = "password";
+    }
+  });
+}
 
 /**
  * init runs all function which are aquired to run onload of the html
@@ -8,7 +41,13 @@ let users = [];
 function signupInit () {
     pushToUsersArray();
     toggleSignupButton( "signup_button_activate" );
+    initPasswordToggle();
+    initPasswordConfirmToggle();
 }
+
+document.getElementById("logo").addEventListener("click", () => {
+  window.location.href = "../index.html";
+});
 
 /**
  * toggles the visibility for the password input
