@@ -1,12 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../assets/icons/favicon.png" />
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello Stakeholder!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/icons/favicon.svg" />
+    <link rel="stylesheet" href="../css/standart.css" />
+    <link rel="stylesheet" href="../css/navigation.css" />
+    <link rel="stylesheet" href="../css/stakeholder.css" />
+    <title>Stakeholder</title>
+  </head>
+  <body>
+    <header>
+      <div class="header_content">
+        <div class="logo-container">
+          <img src="../assets/icons/logo.svg" alt="Logo" id="logo"/>
+        </div>
+        <div class="header-right">
+          <span>Kanban Project Management Tool</span>
+          <a class="help-link" href="help.html"
+            ><img src="../assets/icons/help.svg" alt="Help"
+          /></a>
+        </div>
+      </div>
+    </header>
+    <div class="request_bar">
+      <div class="arrow">
+        <a href="../index.html"
+          ><img
+            src="../assets/icons/arrow_left.svg"
+            onmouseover="this.src = '/assets/icons/arrow_l_hoover.svg'"
+            onmouseout="this.src = '../assets/icons/arrow_left.svg'"
+            alt="Arrow Left"
+        /></a>
+      </div>
+      <div class="request" id="request">
+        <p>6 of 10 request used today</p>
+      </div>
+    </div>
+    <div class="headline">
+      <h1>Good morning</h1>
+    </div>
+    <div class="content">
+      <div class="content_left">
+        <p>
+          Easily create a ticket by sending an email - no extra steps needed.
+        </p>
+        <span
+          >On this platform, you can submit your feature request via email. Our
+          AI system will automatically generate a ticket with a deadline and
+          priority level.</span
+        >
+        <span
+          >A total of 10 request can be created per day.After this limit, emails
+          can still be sent, but they will be manually reviewed by our team
+          instead of generating AI tickets.</span
+        >
+      </div>
+      <div class="content_right">
+        <img src="../assets/icons/woman.svg" alt="" />
+      </div>
+    </div>
+    <div class="b"><button onclick="window.location.href='mailto:zeljko.alakovic@gmx.de'">Create Email Request <img src="../assets/icons/check.svg" alt="Arrow Right"></button></div>
+     <footer>
+      <div class="footer_content">
+        <a href="privacyPolicy.html">Privacy Policy</a>
+        <a href="legalNotice.html">Legal Notice</a>
+      </div>
+    </footer>
+  </body>
+  <script src="../script/stakeholder.js"></script>
 </html>
