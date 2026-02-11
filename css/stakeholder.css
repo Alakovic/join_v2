@@ -35,7 +35,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 110px;
+  padding: 10px 110px;
 }
 
 .arrow a img:hover {
@@ -49,9 +49,17 @@ header {
 
 .headline {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0px 110px;
+}
+
+.limit_message {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 h1 {
@@ -115,7 +123,7 @@ button:hover {
 
 footer {
   margin-top: auto;
-  padding: 30px 110px;
+  padding: 20px 110px;
   text-align: center;
 }
 

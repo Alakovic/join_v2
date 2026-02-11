@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/stakeholder.css" />
     <title>Stakeholder</title>
   </head>
-  <body>
+  <body onload="init()">
     <header>
       <div class="header_content">
         <div class="logo-container">
@@ -33,12 +33,15 @@
             alt="Arrow Left"
         /></a>
       </div>
-      <div class="request" id="request">
-        <p>6 of 10 request used today</p>
+      <div class="request">
+        <p  id="request"><span id="requestCount"></span> of 10 request used today</p>
       </div>
     </div>
     <div class="headline">
       <h1>Good morning</h1>
+      <div class="limit_message">
+        <img src="../assets/icons/Frame 386.svg" alt="">
+      </div>
     </div>
     <div class="content">
       <div class="content_left">
