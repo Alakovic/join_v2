@@ -30,7 +30,9 @@ async function pushToTask() {
             priority: taskData.priority,
             status: taskData.status,
             subtasks: taskData.subtasks,
-            assignedUsers: taskData.assignedUsers
+            assignedUsers: taskData.assignedUsers,
+            creatorName: taskData.creatorName,
+            creatorType: taskData.creatorType
         });
     }
     updateView()

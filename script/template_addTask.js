@@ -1,5 +1,5 @@
 function subtaskTemplat(inputSubtaskVal) {
-    return ` 
+  return ` 
             <div class="d_flex addedSubtask pointer" id="">
                 <li class="subtask-value" ondblclick="editSubtasks(this)">
                     ${inputSubtaskVal} 
@@ -17,30 +17,30 @@ function subtaskTemplat(inputSubtaskVal) {
                     </div>
                 </div>
             </div>
-    `
+    `;
 }
 
 function templateAssignedTo(contact, isChecked, isCurrentUser) {
-    return `
+  return `
     <div class="assigned-contacts visible-assigned d_flex pointer">
             <label for="assigned-user-${contact.name}" onclick="stopPropagation(event)" class="d_flex ">
                 <div class="d_flex icon-name-template">
-                    <div class="name-icon d_flex ${contact.avatarColorClass? contact.avatarColorClass: `avatar-color-user` }" data-value="${contact.name}">
-                    ${contact.name.split(' ').length > 1 ? contact.name.split(' ')[0][0].toUpperCase() + contact.name.split(' ')[1][0].toUpperCase() : contact.name.split(' ')[0][0].toUpperCase() + contact.name.split(' ')[0][1].toUpperCase()}
+                    <div class="name-icon d_flex ${contact.avatarColorClass ? contact.avatarColorClass : `avatar-color-user`}" data-value="${contact.name}">
+                    ${contact.name.split(" ").length > 1 ? contact.name.split(" ")[0][0].toUpperCase() + contact.name.split(" ")[1][0].toUpperCase() : contact.name.split(" ")[0][0].toUpperCase() + contact.name.split(" ")[0][1].toUpperCase()}
                     </div>
                     <div class="assigned-template-name">
-                        <div>${contact.name.split(' ')[0][0].toUpperCase() + contact.name.slice(1) }</div>
-                        ${isCurrentUser ? '<span class="you-label"> (You)</span>' : ''}
+                        <div>${contact.name.split(" ")[0][0].toUpperCase() + contact.name.slice(1)}</div>
+                        ${isCurrentUser ? '<span class="you-label"> (You)</span>' : ""}
                     </div>
                 </div>
                 <input type="checkbox" ${isChecked ? "checked" : ""} class="input-assigned icon-24" name="assigned-user-${contact.name}" id="assigned-user-${contact.name}">
             </label>  
         </div>    
-    `
+    `;
 }
 
 function tempTaskToBoardOverlay() {
-    return `<div id="task-to-board-overlay" class="d_flex center-center">
+  return `<div id="task-to-board-overlay" class="d_flex center-center">
                 <div id="task-to-board-animation" class="d_flex center-center">
                     <div>
                         Task added to board
@@ -50,50 +50,81 @@ function tempTaskToBoardOverlay() {
                     </div>
                 </div>
             </div>
-        `
+        `;
 }
 
 function generateTask(element) {
-    let bg_color = toggleCategoryColor(element.category);
-    let { completed, total, progress } = calculateSubtaskProgress(element.subtasks);
-    let priority_img = togglePriority(element.priority);
-    let user_icon = generateUserIcons(element.assignedUsers);
+  let bg_color = toggleCategoryColor(element.category);
+  let { completed, total, progress } = calculateSubtaskProgress(
+    element.subtasks,
+  );
+  let priority_img = togglePriority(element.priority);
+  let user_icon = generateUserIcons(element.assignedUsers);
 
-    return `
+  return `
     <div draggable="true"  ondragstart="startDragging('${element.id}')" class="ticket" onclick="showOverlay('${element.id}')">
     <div class="ticket_category"><span style="background-color: ${bg_color};" >${element.category}</span> 
     <img src="../assets/icons/up_down_arrow.png" alt="UpDownArrow" onclick="showMiniMenu(event, '${element.id}', '${element.status}')"></div>
     <div class="ticket_title"><h3>${element.title}</h3></div>
     <div class="ticket_description">${element.description}</div>
-    ${element.subtasks && completed > 0 ? ` <div class="ticket_subtasks">
+    ${
+      element.subtasks && completed > 0
+        ? ` <div class="ticket_subtasks">
     <div class="progress_bar">
     <div class="progress" style="width: ${progress}%;"></div>
     </div>
     <div class="completed"><span>${completed}/${total} Subtasks</span></div>
-    </div>` : ''
+    </div>`
+        : ""
     }
-    <div class="ticket_footer ${!user_icon ? 'no_users' : ''}">
-    <div class="ticket_users">${user_icon || ''}</div>
+    <div class="ticket_footer ${!user_icon ? "no_users" : ""}">
+    <div class="ticket_users">${user_icon || ""}</div>
     <div class="ticket_priority">${priority_img}</div>
     </div>
-    </div>`
+    </div>`;
 }
 
 function generateNoTask(status) {
-    return `
+  return `
         <div class="noTask_msg">
         <span>No task ${status} </span>
     </div>
 `;
 }
 
-function generateTaskOverlay(element) {
-    let bg_color = toggleCategoryColor(element.category);
-    let priority_img = togglePriority(element.priority);
-    let user_icon_name = generateOverlayUserIcons(element.assignedUsers);
-    let subtask = element.subtasks ? generateSubtasks(element.subtasks, element.id) : '';
+function getCreatorImage(type) {
+  if (type === "member") {
+    return "../assets/icons/user.svg";
+  } else {
+    return "../assets/icons/extern.svg";
+  }
+}
 
-    return `
+function getImage(type) {
+  if (type === "member") {
+    return "../assets/icons/See profile.svg";
+  } else {
+    return "../assets/icons/Send email.svg";
+  }
+}
+
+function getCreatorName(element) {
+  return element.creatorName || "Unknown";
+}
+
+function generateTaskOverlay(element) {
+  console.log(element);
+  let bg_color = toggleCategoryColor(element.category);
+  let priority_img = togglePriority(element.priority);
+  let user_icon_name = generateOverlayUserIcons(element.assignedUsers);
+  let subtask = element.subtasks
+    ? generateSubtasks(element.subtasks, element.id)
+    : "";
+  let creatorImg = getCreatorImage(element.creatorType);
+  let creatorName = getCreatorName(element);
+  let img = getImage(element.creatorType);
+
+  return `
     <div  class="ticket_overlay">
     <div class="overlay_header">
     <div class="category_overlay"><span style="background-color: ${bg_color};" >${element.category}</span></div>
@@ -101,11 +132,17 @@ function generateTaskOverlay(element) {
     </div>
     <div class="title_overlay"><h1>${element.title}</h1></div>
     <div class="description_overlay">${element.description}</div>
+    <div class="creator_overlay"><span>Creator:</span> 
+    <img src="${creatorImg}" class="member_extern"> 
+    <span class="creator_name">${creatorName}</span>
+    <img src="${img}" class="creator_contact"></div>
     <div class="date_overlay"><span>Due date : </span>
     <div >${element.dueDate}</div></div>
     <div class="priority_overlay"><span>Priority: </span>
     <div>${element.priority}  ${priority_img}</div></div>
-    ${user_icon_name ? `
+    ${
+      user_icon_name
+        ? `
         <div class="assigned_overlay">
             <table>
                 <tr><th>Assigned To:</th></tr>
@@ -113,22 +150,28 @@ function generateTaskOverlay(element) {
                 </td></tr>
             </table>
         </div>
-        ` : ''}
-         ${subtask ? `
+        `
+        : ""
+    }
+         ${
+           subtask
+             ? `
             <div class="subtasks_overlay"><span>Subtasks:</span>
                 ${subtask}
-            </div>` : ''}
+            </div>`
+             : ""
+         }
     <div class="delete_edit">
         <button type="button" class="delete_btn" onclick="deleteTask('${element.id}')"><img src="../assets/icons/delete.png" alt="delete icon">Delete</button>
         <button type="button" class="edit_btn"   onclick="showEditOverlay('${element.id}')"><img src="../assets/icons/edit.png" alt="edit icon">Edit</button>
     </div>
-    </div>`
+    </div>`;
 }
 
 function generateEditOverlay(task) {
-    let allSubtasks = generateSubtasksHtml(task.subtasks)
+  let allSubtasks = generateSubtasksHtml(task.subtasks);
 
-    return `<div id="task-message" style="display: none;">
+  return `<div id="task-message" style="display: none;">
             <p>Edit successful </p>
             <img src="../assets/icons/board_icon.png" alt="Board Icon">
             </div>
@@ -154,17 +197,17 @@ function generateEditOverlay(task) {
                 <span><strong> Priority </strong></span>
                 <div class="priorityEdit_buttons">
                  <label class="radio_btn add_task_urgent" for="urgent-rad" onclick="radioBtnChecked('Urgent')">
-                        <input type="radio" id="urgent-rad" value="Urgent" ${task.priority === 'Urgent' ? 'checked' : ''}> Urgent 
+                        <input type="radio" id="urgent-rad" value="Urgent" ${task.priority === "Urgent" ? "checked" : ""}> Urgent 
                          <img class="unchecked_priority" src="../assets/icons/urgent.svg" alt="">
                         <img class="checked_priority" src="../assets/icons/urgent_white.svg" alt="">
                  </label>
                  <label class="radio_btn add_task_medium" for="medium-rad" onclick="radioBtnChecked('Medium')">
-                        <input type="radio" id="medium-rad" value="Medium" ${task.priority === 'Medium' ? 'checked' : ''}> Medium 
+                        <input type="radio" id="medium-rad" value="Medium" ${task.priority === "Medium" ? "checked" : ""}> Medium 
                         <img class="unchecked_priority" src="../assets/icons/medium.svg" alt="">
                         <img class="checked_priority" src="../assets/icons/medium_white.svg" alt="">
                  </label>
                  <label class="radio_btn add_task_low" for="low-rad" onclick="radioBtnChecked('Low')">
-                        <input type="radio" id="low-rad" value="Low" ${task.priority === 'Low' ? 'checked' : ''}> Low 
+                        <input type="radio" id="low-rad" value="Low" ${task.priority === "Low" ? "checked" : ""}> Low 
                         <img class="unchecked_priority" src="../assets/icons/low.svg" alt="">
                          <img class="checked_priority" src="../assets/icons/low_white.svg" alt="">
                  </label>
@@ -211,7 +254,7 @@ function generateEditOverlay(task) {
 }
 
 function generateSingleSubtask(title, checked, taskId, index) {
-    return `
+  return `
         <div class="subtask_item">
             <input type="checkbox" id="${taskId}-subtask-${index}" ${checked} onchange="toggleSubtask('${taskId}', '${index}')">
             <label for="${taskId}-subtask-${index}">${title}</label>
@@ -219,18 +262,17 @@ function generateSingleSubtask(title, checked, taskId, index) {
     `;
 }
 
-function generateOverlaySingleUserIcon(initial,name, color) {
-    return `<div class="user_icon_plus_name">
+function generateOverlaySingleUserIcon(initial, name, color) {
+  return `<div class="user_icon_plus_name">
                 <span class="user_icon_overlay" style="background-color: ${color}">${initial}</span>
                 <span class="user_name_overlay">${name}</span>
             </div>`;
 }
 
 function createExtraUsersIcon(count, leftPosition) {
-    return `<span class="user_icon" style="background-color:gray; left: ${leftPosition}px;">+${count}</span>`;
+  return `<span class="user_icon" style="background-color:gray; left: ${leftPosition}px;">+${count}</span>`;
 }
 
-
 function generateSingleUserIcon(initial, leftPosition, color) {
-    return `<span class="user_icon" style="background-color: ${color}; left: ${leftPosition}px;">${initial}</span>`;
+  return `<span class="user_icon" style="background-color: ${color}; left: ${leftPosition}px;">${initial}</span>`;
 }

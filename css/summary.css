@@ -242,7 +242,7 @@ a {
 }
 
 .active_span:before {
-    content: url("../assets/icons/summary_icon.png");
+    content: url("../assets/icons/summary_icon_gray.svg");
     background-color: var(--menuHoverColor);
     display: inline-block;
     vertical-align: middle;

@@ -219,7 +219,7 @@ li[contenteditable="true"] {
 }
 
 .active_span:before {
-  content: url("../assets/icons/add_task_icon.png");
+  content: url("../assets/icons/add_task_icon_gray.svg");
   background-color: var(--menuHoverColor);
   display: inline-block;
   vertical-align: middle;

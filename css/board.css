@@ -1,11 +1,18 @@
 .board_content {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 50px;
-    overflow-y: auto;
+    padding: 0 20px;
+}
+
+.board_content > div {
     flex: 1;
+}
+
+.triage_header, .toDo_header, .inProgress_header, .awaitFeedback_header, .done_header {
+    display: flex;
+    justify-content: center;
+   
 }
 
 .board_content::-webkit-scrollbar {
@@ -31,17 +38,6 @@
     background-color: #005DFF;
 }
 
-.toDo, .inProgress, .awaitFeedback, .done {
-    width: 300px;
-}
-
-.toDo_header, .inProgress_header, .awaitFeedback_header, .done_header {
-    padding-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .toDo_header img:hover, .inProgress_header img:hover, .awaitFeedback_header img:hover, .done_header img:hover {
     cursor: pointer;
     filter: brightness(0.9);
@@ -62,7 +58,7 @@
 
 .noTask_msg {
     height: 40px;
-    width: 100%;
+    width:auto;
     background-color: #e7e7e7;
     border: 1px dotted #a8a8a8;
     color: #a8a8a8;
@@ -71,7 +67,7 @@
     align-items: center;
     justify-content: center;
     padding: 5px 10px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .drag-area-highlight {
@@ -82,10 +78,10 @@
 .ticket {
     background-color: var(--secondaryColor);
     border: 1px solid #f7f7f7;
-    border-radius: 10px;
-    width: 290px;
+    border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
     margin-top: 5px;
+    width: 99%;
 }
 
 .ticket :hover{
@@ -95,9 +91,7 @@
 .ticket_category {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px ; 
-    position: relative;
+    padding: 10px;
 }
 
 
@@ -122,16 +116,12 @@
 }
 
 .ticket_title{
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 10px;
+    padding: 10px 10px 20px 10px;
     color: #4589ff;
 }
 
 .ticket_description{
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
+     padding: 0px 10px 10px 10px;
     color: #a8a8a8;
 }
 
@@ -139,8 +129,7 @@
     display: flex;
     align-items: center;
     gap: 10px; 
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0 10px;
 }
 
 .progress_bar {
@@ -167,11 +156,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:20px; 
+    padding:10px; 
 }
 
 .ticket_footer.no_users{
-    padding: 0 20px  20px  20px;
+    padding: 0 10px 10px 10px;
 }
 
 .ticket_users {
@@ -268,7 +257,7 @@
 }
 
 .active_span:before {
-    content: url("../assets/icons/board_icon.png");
+    content: url("../assets/icons/board_icon_gray.svg");
     background-color: var(--menuHoverColor);
     display: inline-block;
     vertical-align: middle;

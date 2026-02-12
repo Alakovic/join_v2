@@ -7,7 +7,7 @@ async function getCurrentUser() {
     let userData = JSON.parse(localStorage.getItem('user'));
     if (userData) {
         user.push(userData);
-        generateUserIconHeader() 
+        generateUserIconHeader();
     } 
 }
 
@@ -121,7 +121,7 @@ function getColorForUser(name) {
  * IDs of the task status sections.
  * @constant {string[]}
  */
-const sectionIds = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+const sectionIds = ['toDo', 'inProgress', 'awaitFeedback', 'done', 'triage'];
 
 /**
  * Handles the search input, filters tasks across all sections,
@@ -132,6 +132,7 @@ function handleSearch() {
     hideAllSections();
     let isAnyTaskFound = false;
 
+    if (filterAndDisplayTasks('triage', searchTerm)) isAnyTaskFound = true;
     if (filterAndDisplayTasks('toDo', searchTerm)) isAnyTaskFound = true;
     if (filterAndDisplayTasks('inProgress', searchTerm)) isAnyTaskFound = true;
     if (filterAndDisplayTasks('awaitFeedback', searchTerm)) isAnyTaskFound = true;
@@ -236,6 +237,7 @@ function showNoTasksFoundMessage() {
  * @constant {Object<string,string>}
  */
 const statusMap = {
+    triage: 'Triage',
     toDo: 'To Do',
     inProgress: 'In Progress',
     awaitFeedback: 'Await Feedback',

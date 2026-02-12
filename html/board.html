@@ -55,13 +55,13 @@
                         <ul>
                             <li>
                                 <a href="summary.html">
-                                    <img src="../assets/icons/summary_icon.png" alt="Join Logo">
+                                    <img src="../assets/icons/summary_icon_gray.svg" alt="Join Logo">
                                     <span>Summary</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="addTask.html">
-                                    <img src="../assets/icons/add_task_icon.png" alt="Join Logo">
+                                    <img src="../assets/icons/add_task_icon_gray.svg" alt="Join Logo">
                                     <span>Add Task</span>
                                 </a>
                             </li>
@@ -72,7 +72,7 @@
                             </li>
                             <li>
                                 <a href="contacts.html">
-                                    <img src="../assets/icons/contacts_icon.png" alt="Join Logo">
+                                    <img src="../assets/icons/contact_icon_gray.svg" alt="Join Logo">
                                     <span>Contacts</span>
                                 </a>
                             </li>
@@ -88,19 +88,28 @@
                 <div class="board_header">
                     <div class="search_container">
                         <input type="text" placeholder="Find Task" name="search" oninput="handleSearch()">
-                        <img src="../assets/icons/search.png" alt="">
+                        <img src="../assets/icons/search.svg" alt="">
                     </div>
                     <div class="add_btn">
                         <button onclick=" showAddTaskOverlayByStatus('toDo')"><span>Add Task</span>
-                            <img src="../assets/icons/plus_button_white.png" alt="">
+                            <img src="../assets/icons/plus.svg" alt="">
                         </button>
                     </div>
                 </div>
                 <div class="board_content">
+                    <div class="triage">
+                        <div class="triage_header">
+                            <h2>Triage </h2>
+                        </div>
+                        <div class="triage_content">
+                            <div class="drag_area" id="triage" ondrop="moveTo('triage')"
+                                ondragover="allowDrop(event); highlight('triage')" ondragleave="removeHighlight('triage')">
+                            </div>
+                        </div>
+                    </div>
                     <div class="toDo">
                         <div class="toDo_header">
                             <h2>To do </h2>
-                            <img src="../assets/icons/plus_button.png" alt="" onclick="showAddTaskOverlayByStatus('toDo')">
                         </div>
                         <div class="toDo_content">
                             <div class="drag_area" id="toDo" ondrop="moveTo('toDo')"
@@ -111,7 +120,6 @@
                     <div class="inProgress">
                         <div class="inProgress_header">
                             <h2>In progress</h2>
-                            <img src="../assets/icons/plus_button.png" alt="" onclick="showAddTaskOverlayByStatus('inProgress')">
                         </div>
                         <div class="inProgress_content">
                             <div class="drag_area" id="inProgress" ondrop="moveTo('inProgress')"
@@ -123,8 +131,6 @@
                     <div class="awaitFeedback">
                         <div class="awaitFeedback_header">
                             <h2>Await Feedback</h2>
-                            <img src="../assets/icons/plus_button.png" alt=""
-                                onclick="showAddTaskOverlayByStatus('awaitFeedback')">
                         </div>
                         <div class="awaitFeedback_content">
                             <div class="drag_area" id="awaitFeedback" ondrop="moveTo('awaitFeedback')"
@@ -144,8 +150,10 @@
                         </div>
                     </div>
                 </div>
+
+                    
             </section>
-        </div>
+        </div
         <div id="statusMenu" class="status_menu hidden" onclick="event.stopPropagation()"></div>
         <div id="dragTooltip" class="tooltip hidden">Use the Up/Down arrows to move tasks</div>
     </body>

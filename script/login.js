@@ -75,7 +75,6 @@ function displayError() {
  */
 function handleSuccessfulLogin(userData) {
   localStorage.setItem("user", JSON.stringify(userData));
-  console.log(userData);
   redirectToSummary();
 }
 

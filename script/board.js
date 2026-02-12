@@ -47,6 +47,8 @@ function displayTasks(status) {
  */
 function getLabelForStatus(status) {
     switch (status) {
+        case 'triage':
+            return 'Triage';
         case 'toDo':
             return 'To do';
         case 'inProgress':
@@ -64,11 +66,11 @@ function getLabelForStatus(status) {
  * Displays tasks for all predefined status sections.
  */
 function displayAllTaskSections() {
-    let statuses = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+    let statuses = ['toDo', 'inProgress', 'awaitFeedback', 'done','triage'];
     for (let i = 0; i < statuses.length; i++) {
         displayTasks(statuses[i]);
     }
-}
+} 
 
 /**
  * Returns the color code based on task category.
