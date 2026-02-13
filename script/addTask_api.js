@@ -166,6 +166,7 @@ function getTaskInputs() {
  */
 
 function createTaskData(inputData) {
+     const user = JSON.parse(localStorage.getItem("user"));
     return {
         title: inputData.titleNewTaskRef,
         description: inputData.descriptionNewTaskRef,
@@ -175,6 +176,9 @@ function createTaskData(inputData) {
         assignedUsers: inputData.assignedUserRef,
         status: "toDo",
         subtasks: inputData.subtasks,
+        creatorName: user?.name || "Extern User",
+        creatorType: user ? "member" : "extern",
+        email: user?.email || null
     };
 }
 
