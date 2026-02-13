@@ -112,6 +112,18 @@ function getCreatorName(element) {
   return element.creatorName || "Unknown";
 }
 
+function getCreatorAction(element) {
+  if (element.creatorType === "extern") {
+    return `mailto:${element.email}`;
+  }
+
+  if (element.creatorType === "member") {
+    return `contacts.html?email=${encodeURIComponent(element.email)}`;
+  }
+
+  return "#";
+}
+
 function generateTaskOverlay(element) {
   console.log(element);
   let bg_color = toggleCategoryColor(element.category);
@@ -123,6 +135,7 @@ function generateTaskOverlay(element) {
   let creatorImg = getCreatorImage(element.creatorType);
   let creatorName = getCreatorName(element);
   let img = getImage(element.creatorType);
+  let creatorAction = getCreatorAction(element);
 
   return `
     <div  class="ticket_overlay">
@@ -135,7 +148,9 @@ function generateTaskOverlay(element) {
     <div class="creator_overlay"><span>Creator:</span> 
     <img src="${creatorImg}" class="member_extern"> 
     <span class="creator_name">${creatorName}</span>
-    <img src="${img}" class="creator_contact"></div>
+    <a href="${creatorAction}">
+    <img src="${img}" class="creator_contact">
+    </a></div>
     <div class="date_overlay"><span>Due date : </span>
     <div >${element.dueDate}</div></div>
     <div class="priority_overlay"><span>Priority: </span>
@@ -176,6 +191,7 @@ function generateEditOverlay(task) {
             <img src="../assets/icons/board_icon.png" alt="Board Icon">
             </div>
             <div class="ticketEdit_overlay ">
+            <div class="ticketEdit_scroll">
             <div class="addTask_header_overlay">
             <div class="header_x"  onclick="closeOverlay()"><img src="../assets/icons/x.png" alt="X"></div>
             </div>
@@ -249,6 +265,7 @@ function generateEditOverlay(task) {
                     <div class="btn_title">Ok</div>
                     <img src="../assets/icons/check.svg" alt="">
                 </button>
+            </div> 
             </div> 
         </div>`;
 }

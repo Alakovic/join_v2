@@ -3,15 +3,20 @@
     cursor: pointer;
     outline: none;
     border-bottom: 1px solid #D1D1D1;
-    width: 100%;
-    font-size: 24px;
+    font-size:20px;
     padding-bottom: 10px;
     padding-left:10px;
-    margin-top: 15px;
 }
 
-.addTask_header_overlay{
-    height: 50px;
+.header_x {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
 }
 
 ::placeholder{
@@ -26,10 +31,12 @@
     display: flex;
     flex-direction:column;
     padding-top: 30px;
+    padding-right: 10px;
 }
 
 .priority,.assigned,.category,.subtasks{
     padding-top: 30px;
+    padding-right: 10px;
 }
 
 .description span,.date span, .priority span, .assigned span, .category span, .subtasks span{

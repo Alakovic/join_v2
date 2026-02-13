@@ -102,23 +102,27 @@ async function postContactData ( path = "", data = {} ) {
 }
 
 
-/**
- * Fetches all contacts from the server, rebuilds the local contacts array, and re-renders the contact list.
- * @async
- * @returns {Promise<void>} Resolves once contacts are fetched, the array is updated, and renderContacts() is called.
- */
 async function pushToContactsArray () {
     let response = await getAllContacts( "/contacts" );
     let contactKeysArray = Object.keys( response || {} );
     contacts = [];
+
     for ( let index = 0; index < contactKeysArray.length; index++ ) {
         contacts.push( {
             id: contactKeysArray[ index ],
             contactData: response[ contactKeysArray[ index ] ]
         } );
     }
+
     renderContacts();
+
+    const email = getEmailFromURL();
+    if (!email) return;
+
+    const contact = findContactByEmail(email);
+    if (contact) selectContactDirect(contact.id);
 }
+
 
 
 /**
@@ -314,5 +318,26 @@ function attachPhoneFilter ( inputId ) {
     } );
 }
 
+function findContactByEmail(email) {
+    return contacts.find(c => c.contactData.email === email);
+}
+
+function getEmailFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("email");
+}
+
+function selectContactDirect(contactId) {
+    const contact = document.getElementById(contactId);
+    if (!contact) return;
+    contact.classList.add("selected");
+    contact.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+    updateDetailPanel(contactId);
+    ensureDetailPanelOpen();
+}
 
 pushToContactsArray();

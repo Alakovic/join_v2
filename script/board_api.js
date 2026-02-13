@@ -32,7 +32,8 @@ async function pushToTask() {
             subtasks: taskData.subtasks,
             assignedUsers: taskData.assignedUsers,
             creatorName: taskData.creatorName,
-            creatorType: taskData.creatorType
+            creatorType: taskData.creatorType,
+            email: taskData.email
         });
     }
     updateView()

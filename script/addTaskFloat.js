@@ -307,6 +307,7 @@ function taskObject(status) {
     status: status,
     creatorName: JSON.parse(localStorage.getItem("user"))?.name,
     creatorType: "member",
+    email: JSON.parse(localStorage.getItem("user"))?.email
   };
 }
 
