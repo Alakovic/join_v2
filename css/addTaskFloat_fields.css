@@ -30,12 +30,12 @@
 .description,.date {
     display: flex;
     flex-direction:column;
-    padding-top: 30px;
+    padding-top: 20px;
     padding-right: 10px;
 }
 
 .priority,.assigned,.category,.subtasks{
-    padding-top: 30px;
+    padding-top: 20px;
     padding-right: 10px;
 }
 
@@ -111,15 +111,15 @@ textarea:focus{
     align-items: center;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
-    gap: 10px;
+    gap: 8px;
     padding: 10px;
     background-color: var(--secondaryColor);
-    font-size: 19px;
+    font-size: 16px;
     box-sizing: border-box;
     cursor: pointer;
     margin-top: 10px;
     min-width: 140px; 
-    height: 50px; 
+    height: 40px; 
 }
 
 input[type="radio"] {
