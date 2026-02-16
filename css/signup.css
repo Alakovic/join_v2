@@ -263,56 +263,68 @@ footer {
   scale: 1.1;
 }
 
-@media (max-width: 900px) {
-  #signup_top {
-    padding: 32px;
+@media (max-width: 800px) {
+  #login_top {
+  padding: 20px 20px 20px 20px;
+  }
+
+  .logo_start img {
+    width: 80px;
+    height: 80px;
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 505px) {
+  #login_top {
+  padding: 20px 10px 20px 10px;
+  }
+
+  .logo_start img {
+    width: 80px;
+    height: 80px;
+  }
+
+  #signup_border {
+    width: 95%;
+  }
+
   #signup_container {
-    padding: 16px 32px;
+    padding: 20px 50px;
   }
 
-  #bottom_bar {
-    padding-bottom: 16px;
+  #signup_form {
+    width: 100%;
   }
 
-  .input_container input {
-    padding-right: 0;
-    font-size: 18px;
+  .input_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
-  .checkbox_container {
-    font-size: 16px;
+  footer {
+    padding: 20px 10px;
+  }
+}
+
+@media (max-width: 440px) {
+  #signup_form {
+    gap: 10px;
   }
 
-  .join_logo {
-    width: 64px;
-    height: 78.03px;
+   #signup_container {
+    padding: 20px;
   }
 
-  #arrow_left {
-    top: 5%;
-  }
-
-  #signup_msg {
-    width: 240px;
+  #signup_buttons {
+   margin-top: 30px;
   }
 
   #error_msg {
-    bottom: -34px;
+    bottom: -40px;
   }
 
-  #error_msg_password {
-    bottom: -34px;
-  }
-
-  #error_msg_email {
-    bottom: -34px;
-  }
-
-  #error_msg_name {
-    bottom: -34px;
+  .checkbox_container {
+    padding-top: 45px;
   }
 }
