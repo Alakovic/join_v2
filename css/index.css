@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   min-height: 100vh;
   max-width: 1920px;
@@ -87,7 +91,7 @@ body {
 }
 
 .welcome {
-  width: 500px;
+  width: 700px;
   height: auto;
   background-color: #fff;
   border-radius: 15px;
@@ -142,15 +146,9 @@ h1 {
 }
 
 .stakeholder button {
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-.stakeholder button {
   background-color: #4589ff;
   color: #fff;
+  border: none;
 }
 
 .member button {
@@ -179,4 +177,88 @@ footer {
 .footer_content a:hover {
   cursor: pointer;
   scale: 1.1;
+}
+
+@media (max-width: 700px) {
+  #login_top {
+    padding: 50px 10px;
+  }
+  .welcome {
+    width: 100%;
+    padding: 50px 30px;
+  }
+
+  .content {
+    padding: 50px 10px;
+  }
+  footer {
+    padding: 20px 10px;
+  }
+
+  @keyframes logoMove {
+    0% {
+      transform: translate(0, 0) scale(1.5);
+    }
+
+    100% {
+      transform: translate(calc(-50vw + 70px), calc(-50vh + 110px)) scale(1);
+    }
+  }
+}
+
+@media (max-width: 505px) {
+  #login_top {
+    flex-direction: column;
+    gap: 50px;
+    padding: 20px 10px;
+  }
+
+  .logo_start img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .logo_start {
+    align-self: flex-start;
+  }
+
+  #to_signup {
+    align-self: center;
+  }
+
+  .content {
+    padding: 0 10px;
+  }
+
+  .welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+  }
+
+  .choose {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .choose > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
+
+   @keyframes logoMove {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+      transform: translate(calc(-50vw + 50px), calc(-50vh + 70px)) scale(1);
+    }
+  }
 }
