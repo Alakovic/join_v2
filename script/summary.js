@@ -32,7 +32,10 @@ async function pushToTask() {
             priority: taskData.priority,
             status: taskData.status,
             subtasks: taskData.subtasks,
-            assignedUsers: taskData.assignedUsers
+            assignedUsers: taskData.assignedUsers,
+            creatorName: taskData.creatorName,
+            creatorType: taskData.creatorType,
+            email: taskData.email
         });
     }
     renderSummaryNumbers();
@@ -163,10 +166,11 @@ async function postUserProfile(email, data = {}) {
 function renderSummaryNumbers() {
     renderUrgentTasks("urgent-number");
     renderInBoardTasks("in-board-number");
-    renderToDoTasks("to-do-number");
-    renderInProgressTasks("in-progress-number");
-    renderFeedbackTasks("feedback-number");
-    renderDoneTasks("done-number");
+  //  renderToDoTasks("to-do-number");
+   // renderInProgressTasks("in-progress-number");
+   // renderFeedbackTasks("feedback-number");
+   // renderDoneTasks("done-number");
+    renderAiTasks("in-triage-number");
 }
 
 /**
@@ -222,6 +226,11 @@ function renderFeedbackTasks(id) {
 function renderDoneTasks(id) {
     let doneCount = tasks.filter(task => task.status === "done").length;
     document.getElementById(id).innerText = doneCount;
+}
+
+function renderAiTasks(id) {
+    let aiCount = tasks.filter(task => task.status === "triage").length;
+    document.getElementById(id).innerText = aiCount;
 }
 
 /**

@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/navigation.css" />
     <link rel="stylesheet" href="../css/summary.css" />
-
-    <script src="../script/header.js"></script>
-    <script src="../script/login.js"></script>
-    <script src="../script/summary.js"></script>
-    <script src="../script/script.js"></script>
-
   </head>
 
   <body onload="init()">
@@ -97,21 +91,20 @@
         </div>
       </section>
       <section class="main_wrapper">
-        <div class="dashboard">
-          <div class="user-greeting" id="user-greeting">
-            <h2>
+        <div class="user-greeting" id="user-greeting">
+            <h1>
               <span class="greet" id="greet">Good morning,</span
               ><span class="user-name" id="user_name"></span>
-            </h2>
+            </h1>
           </div>
           <div class="stats">
             <div class="task-overview-top">
-              <a href="board.html" class="urgent-tasks">
+             <div class="urgent_task"> <a href="board.html" class="urgent-tasks">
                 <div class="urgent-tasks-left">
                   <div class="task-card-head">
                     <img
                       class="summary_icon"
-                      src="../assets/icons/urgent_icon.png"
+                      src="../assets/icons/urgent_icon.svg"
                     />
                     <h3 id="urgent-number">1</h3>
                   </div>
@@ -122,37 +115,49 @@
                   <h4 id="dueDate">-- --, ----</h4>
                   <p>Upcoming Deadline</p>
                 </div>
-              </a>
-              <a href="board.html" class="task-card" id="in-board">
+              </a></div>
+              <div class="email_req"> <a href="board.html" class="task-card" id="in-triage">
                 <div class="task-card-head">
                   <img
                     class="summary_icon"
-                    src="../assets/icons/in-board_icon.png"
+                    src="../assets/icons/KI.svg"
+                  />
+                  <h3 class="KI" id="in-triage-number">5</h3>
+                </div>
+                <p>Email <br> Request</p>
+              </a></div>
+              <div class="board_task"></div> <a href="board.html" class="task-card" id="in-board">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/taskInBoard.svg"
                   />
                   <h3 id="in-board-number">5</h3>
                 </div>
-                <p>Task in Board</p>
+                <p>Task in <br> Board</p>
               </a>
             </div>
             <div class="task-overview-bottom">
-              <div class="task-overview-left">
-                <a href="board.html" class="task-card to-do">
+              <div class="toDo  padding_right">
+                <a href="board.html" class="task-card">
                   <div class="task-card-head">
                     <img
                       class="summary_icon"
-                      src="../assets/icons/to-do_icon.png"
+                      src="../assets/icons/toDo.svg"
                     />
                     <h3 id="to-do-number">1</h3>
                   </div>
-                  <p>Tasks To-do</p>
+                  <p>Tasks <br> To-do</p>
                 </a>
-                <a href="board.html" class="task-card progress">
+              </div>
+              <div class="inProgress  padding_right" >
+                   <a href="board.html" class="task-card">
                   <div class="task-card-head">
                     <img
                       class="summary_icon"
-                      src="../assets/icons/progress_icon.png"
+                      src="../assets/icons/TaskInProgress.svg"
                     />
-                    <h3 id="in-progress-number">2</h3>
+                    <h3 id="in-progress-number">0</h3>
                   </div>
                   <p>
                     Task in <br />
@@ -160,35 +165,41 @@
                   </p>
                 </a>
               </div>
-              <div class="task-overview-right">
-                <a href="board.html" class="task-card feedback">
+              <div class="aFeedback  padding_right">
+                <a href="board.html" class="task-card">
                   <div class="task-card-head">
                     <img
                       class="summary_icon"
-                      src="../assets/icons/feedback_icon.png"
+                      src="../assets/icons/awaitFeedback.svg"
                     />
-                    <h3 id="feedback-number">2</h3>
+                    <h3 id="feedback-number">0</h3>
                   </div>
                   <p>
                     Awaiting <br />
                     Feedback
                   </p>
                 </a>
-                <a href="board.html" class="task-card done">
+              </div>
+              <div class="taskDone">
+                <a href="board.html" class="task-card">
                   <div class="task-card-head">
                     <img
                       class="summary_icon"
-                      src="../assets/icons/done_icon.png"
+                      src="../assets/icons/taskSDone.svg"
                     />
-                    <h3 id="done-number">1</h3>
+                    <h3 id="done-number">0</h3>
                   </div>
-                  <p>Tasks Done</p>
+                  <p>Tasks <br> Done</p>
                 </a>
+
               </div>
             </div>
           </div>
-        </div>
       </section>
     </div>
   </body>
+  <script src="../script/header.js"></script>
+    <script src="../script/login.js"></script>
+    <script src="../script/summary.js"></script>
+    <script src="../script/script.js"></script>
 </html>
