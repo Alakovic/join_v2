@@ -50,7 +50,7 @@ function greetTransition() {
     if (window.innerWidth <= 910)
         setTimeout(() => {
             greeting.classList.add("greet_transition");
-            }, 2000);
+            }, 500);
 }
 
 
@@ -65,10 +65,7 @@ async function init() {
         postUserProfile(email, {createdAt: new Date().toISOString()});
         displayUserData();
         greetUser();
-    } else {
-        handleGuestLogin();
-        greetGuest();
-    }
+    }   
     pushToTask();
     greetTransition()
 }
@@ -166,10 +163,10 @@ async function postUserProfile(email, data = {}) {
 function renderSummaryNumbers() {
     renderUrgentTasks("urgent-number");
     renderInBoardTasks("in-board-number");
-  //  renderToDoTasks("to-do-number");
-   // renderInProgressTasks("in-progress-number");
-   // renderFeedbackTasks("feedback-number");
-   // renderDoneTasks("done-number");
+    renderToDoTasks("to-do-number");
+    renderInProgressTasks("in-progress-number");
+    renderFeedbackTasks("feedback-number");
+    renderDoneTasks("done-number");
     renderAiTasks("in-triage-number");
 }
 
