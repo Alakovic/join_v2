@@ -206,7 +206,9 @@
         -480
       ],
       "id": "00bb14a4-7b8f-40c9-b963-45b0fae4356a",
-      "name": "Send task"
+      "name": "Send task",
+      "alwaysOutputData": true,
+      "notesInFlow": false
     },
     {
       "parameters": {
@@ -240,6 +242,30 @@
       "id": "053e012f-370f-4abf-902e-c2125767e7e7",
       "name": "Send an Email",
       "webhookId": "08cb98c8-a0a1-41ca-b938-733993f4a198",
+      "credentials": {
+        "smtp": {
+          "id": "yDFEb55NnkGXROFI",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "zeljko.alakovic@gmx.de",
+        "toEmail": "={{ $('AI Agent').item.json.output.email }}",
+        "subject": "Task received successfully",
+        "html": "=Hello {{ $('AI Agent').item.json.output.sender }},\n\nYour task \"{{ $('AI Agent').item.json.output.title }}\" has been successfully received and added to the board.\n\nDue date: {{ $('AI Agent').item.json.output.dueDate }}\nPriority: {{ $('AI Agent').item.json.output.priority }}\n\nThank you,\nTeam Join\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        704,
+        -608
+      ],
+      "id": "d7f9a999-a746-4dec-89a3-f222d4f67353",
+      "name": "Send an Email1",
+      "webhookId": "04a50041-3c53-4c75-be65-165e8cff2df4",
       "credentials": {
         "smtp": {
           "id": "yDFEb55NnkGXROFI",
@@ -400,6 +426,17 @@
           }
         ]
       ]
+    },
+    "Send task": {
+      "main": [
+        [
+          {
+            "node": "Send an Email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -408,7 +445,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "6e7dffb9-6dfd-496d-a2cb-d156010c338d",
+  "versionId": "d827b3f8-dd6a-4b81-8f79-6c565830d35d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "f59f3d1403012cd5922cca7caf200576b096d713c79dcc520e2d019bb14f6b37"

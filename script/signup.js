@@ -169,14 +169,15 @@ async function checkEmailExists ( inputMail ) {
  * shows the overlay for a succesfull signup for 3 seconds
  */
 function toggleOverlay () {
-    const overlay = document.getElementById( "signup_overlay" );
-    const div = document.getElementById( "signup_msg" );
-    overlay.classList.remove( "d_none" );
-    fadeInDiv( div );
-    setTimeout( () => {
-        overlay.classList.add( "d_none" );
-        div.classList.remove( "show" );
-    }, 3000 );
+    const div = document.getElementById("signup_msg");
+
+    if (!div) return;
+
+    fadeInDiv(div);
+
+    setTimeout(() => {
+        div.classList.remove("show");
+    }, 1000);
 }
 
 /**
@@ -271,8 +272,8 @@ async function mergeUsersToContacts () {
  */
 function signupRedirectToLogin () {
     setTimeout( () => {
-        location.href = "../index.html";
-    }, 3000 );
+        location.href = "../html/login.html";
+    }, 1000 );
 }
 
 /**
