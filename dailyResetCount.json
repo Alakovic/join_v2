@@ -1,0 +1,76 @@
+{
+  "name": "dailyResetCount",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -368,
+        -16
+      ],
+      "id": "79302b2e-9d37-4f31-8b04-8fc5ea442f9a",
+      "name": "Reset at 00:01"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://join-5677e-default-rtdb.europe-west1.firebasedatabase.app/emailCounter.json",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "count",
+              "value": "0"
+            },
+            {
+              "name": "date",
+              "value": "={{$now.toISODate()}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -160,
+        -16
+      ],
+      "id": "009ebc36-4897-4a72-b450-c3afefd542c0",
+      "name": "Restart Counter"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Reset at 00:01": {
+      "main": [
+        [
+          {
+            "node": "Restart Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f9e79577-aa04-4bb3-bb7f-2d029c7b6e00",
+  "meta": {
+    "instanceId": "f59f3d1403012cd5922cca7caf200576b096d713c79dcc520e2d019bb14f6b37"
+  },
+  "id": "_0I_LklfjAadXf3mK83sE",
+  "tags": []
+}

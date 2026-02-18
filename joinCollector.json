@@ -1,0 +1,418 @@
+{
+  "name": "join",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2.1,
+      "position": [
+        -1328,
+        -288
+      ],
+      "id": "ba9e7bb1-4525-4338-88ce-202e07a65ca4",
+      "name": "Email Trigger (IMAP)",
+      "credentials": {
+        "imap": {
+          "id": "BROsDPT3KDwYVoow",
+          "name": "IMAP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You will receive emails. Each email contains a task request.\n\nYour job is to analyze the email and extract:\n- task title\n- description (optional, max 2 sentences)\n- priority (Medium, Urgent,Low)\n- deadline\n- category (User Story or Technical Task)\n-sender's name (look at the end of the email, it's usually there, if not then by default from the email)\n-sender's email\n\nIMPORTANT RULES:\n- assignedUsers must always be an empty array []\n- Never add users\n- Never change assignedUsers\n- Always return assignedUsers as []\n-status should  always be a triage\n-Today is {{ $now.toISODate() }}\nIf no deadline is mentioned in the email, calculate dueDate as today + 7 days.\nIf a deadline is mentioned but is in the past, set dueDate to today + 7 days.\nReturn dueDate in DD/MM/YYYY format only.\n\n\n\nEmail content: \nFrom:  {{ $json.from }}\nSubject: {{ $json.textPlain }}\n{{ $json.subject }}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        0,
+        -384
+      ],
+      "id": "25d0e295-0df4-4995-a8cc-d4fc43979d89",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        -160
+      ],
+      "id": "dae359ce-895a-4f32-be00-236e10eb6698",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8dnJrvHdB0J8o9M8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"email\" :\"example@gmail.de\",\n  \"sender\":\"John Johnson\",\n  \"assignedUsers\":[\"string\"],\n  \"title\": \"Implement login validation\",\n  \"category\": \"Technical Task\",\n  \"dueDate\": \"2026-02-15\",\n  \"priority\": \"medium\",\n  \"description\": \"Implement login validation on existing project\",\n  \"status\":\"triage\",\n  \"subtasks\" : [{\n    \"title\": \" Add buttons \",\n    \"completed\" : false \n  }]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        -128
+      ],
+      "id": "70d05119-0759-437d-8b2a-10f434f1cba4",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "652008f3-30c1-4060-91df-4f414aca5cbf",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -704,
+        0
+      ],
+      "id": "c15ffc45-d4f2-448b-9b22-3c42ce9eef08",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const today = new Date().toISOString().split('T')[0];\n\n\nconst currentCount = Number($json?.count || 0);\nconst newCount = currentCount + 1;\n\n\nconst email = $('Email Trigger (IMAP)').first().json;\nconst rawReturn = email.metadata['return-path'] || '';\nconst senderEmail = rawReturn.replace(/[<>]/g, '');\n\nreturn [\n  {\n    json: {\n      today,\n      count: newCount,\n      textPlain: email.textPlain,\n      from: email.from,\n      subject: email.subject,\n      senderEmail: senderEmail\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -912,
+        -288
+      ],
+      "id": "7b69ea8e-699e-4860-9b78-cd90264fda2b",
+      "name": "Counter"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://join-5677e-default-rtdb.europe-west1.firebasedatabase.app/emailCounter.json",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "count",
+              "value": "={{ $json.count }}"
+            },
+            {
+              "name": "date",
+              "value": "={{ $json.today }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -480,
+        -448
+      ],
+      "id": "1c292a23-35de-4e03-943e-0c078c5a879f",
+      "name": "PUT today/count",
+      "alwaysOutputData": true,
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://join-5677e-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "assignedUsers",
+              "value": "={{ $json.output.assignedUsers }}"
+            },
+            {
+              "name": "category",
+              "value": "={{ $json.output.category }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.output.description }}"
+            },
+            {
+              "name": "dueDate",
+              "value": "={{ $json.output.dueDate }}"
+            },
+            {
+              "name": "priority",
+              "value": "={{ $json.output.priority }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ $json.output.status }}"
+            },
+            {
+              "name": "subtasks",
+              "value": "={{ $json.output.subtasks }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.output.title }}"
+            },
+            {
+              "name": "creatorName",
+              "value": "={{ $json.output.sender }}"
+            },
+            {
+              "name": "creatorType",
+              "value": "extern"
+            },
+            {
+              "name": "email",
+              "value": "={{ $json.output.email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        400,
+        -480
+      ],
+      "id": "00bb14a4-7b8f-40c9-b963-45b0fae4356a",
+      "name": "Send task"
+    },
+    {
+      "parameters": {
+        "url": "=https://join-5677e-default-rtdb.europe-west1.firebasedatabase.app/emailCounter.json\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1120,
+        -288
+      ],
+      "id": "add58dc6-7c05-4f4a-9a45-b1897955bd4d",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fromEmail": "zeljko.alakovic@gmx.de",
+        "toEmail": "={{ $json.senderEmail }}",
+        "subject": "Daily limit reached",
+        "emailFormat": "text",
+        "text": "Hello,\nWe have reached our AI Agent limit for today. We will review your email manually and add the task to the board \n\nSincerely,\nTeam Join",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -496,
+        144
+      ],
+      "id": "053e012f-370f-4abf-902e-c2125767e7e7",
+      "name": "Send an Email",
+      "webhookId": "08cb98c8-a0a1-41ca-b938-733993f4a198",
+      "credentials": {
+        "smtp": {
+          "id": "yDFEb55NnkGXROFI",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Email Trigger (IMAP)": [
+      {
+        "json": {
+          "textHtml": "<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-2\">\r\n<style type=\"text/css\" style=\"display:none;\"> P {margin-top:0;margin-bottom:0;} </style>\r\n</head>\r\n<body dir=\"ltr\">\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nDear Team members,</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\n<br>\r\n</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nI would like to propose a small but useful improvement to the reporting system.</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\n<br>\r\n</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nIt would be very helpful if users could export reports in CSV format. This would allow easier data analysis in external tools such as Excel and would improve workflow efficiency for teams that rely on data processing.</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\n<br>\r\n</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nI believe this feature would add significant value to daily operations.</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\n<br>\r\n</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nThank you for your time and consideration.</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\n<br>\r\n</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nBest regards,</div>\r\n<div class=\"elementToProof\" style=\"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nNikola Iliæ</div>\r\n</body>\r\n</html>\r\n",
+          "textPlain": "Dear Team members,\r\n\r\nI would like to propose a small but useful improvement to the reporting system.\r\n\r\nIt would be very helpful if users could export reports in CSV format. This would allow easier data analysis in external tools such as Excel and would improve workflow efficiency for teams that rely on data processing.\r\n\r\nI believe this feature would add significant value to daily operations.\r\n\r\nThank you for your time and consideration.\r\n\r\nBest regards,\r\nNikola Iliæ\r\n",
+          "metadata": {
+            "return-path": "<zeljkoalakovic997@outlook.com>",
+            "authentication-results": " gmx.net; dkim=pass header.i=@outlook.com",
+            "received": "from WA1P291CU004.outbound.protection.outlook.com ([52.103.53.7]) by mx-ha.gmx.net (mxgmx009 [212.227.15.9]) with ESMTPS (Nemesis) id 1M7dJ1-1vrUFa2FGH-008xK9 for <zeljko.alakovic@gmx.de>; Wed, 11 Feb 2026 10:38:35 +0100",
+            "arc-seal": "i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none; b=mxIiJXqIIiiJQrOMV+FKnA8Fnn0U4aRRWAS9NjdcMsswfq7mxGkOsFfhxXf/cpq6AfPDqOMTp6DoLKC8OYpGySr5V4LAIRVE4mLpZq7QuxtEO3auvFTBT4eagZ3OX56tvJLngJka7UpCeBg+L9oW9FPYtmgiEKzVgzzbWgdvkiqTKyFUcN9+eBcg0KTe1N+N+CnCiftWCibxQZzlVHREU3SijpeFZwBaq8+e5/hePpG1C6+6koo7PMxRKT1TPyWq9vGAeAhRMW4FmCPCyG/VSK9LdsOhuMu0BArpiw3gfCbep3BL/knu34HjrD8lKomi2yLAPwE7WrKubtksKVTi8A==",
+            "arc-message-signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; s=arcselector10001; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1; bh=lFqOHFOm6/vU9xDKK8P4Le3wCQboIZWlhG4pK3Jmi5Y=; b=ITMCCI0ybWfOJH0rxduLz/7CWmy23BEB9afW5TuMTIIyVv+7VafPgChgDiE/jKo07vNDj0d5aKgkUAwIjW+h1fCZNI47ho1aFQIOQVqvIyQUO5CvQaQrglGJXdHuqWwHnpo/8QtThhafva7iqG8rZwRU+l7zYIf8GGW05rg8HzdGuiLiYGlFWz92V0koNbwZB7Nc4WxNMIU6ptq7BLNyyDH3HBJhI36k7tf/o0oG9ljiwHRPAqCI9O77YrCaVc06uTmuZi6rykaSWleZhTAm0+S6NLj6UYJVY6hPeM9YA+RmcGKLdHGm4gHyPWjyVpZQsdB1PP4NIjcng1EvSbDsRg==",
+            "arc-authentication-results": "i=1; mx.microsoft.com 1; spf=none; dmarc=none; dkim=none; arc=none",
+            "dkim-signature": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com; s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck; bh=lFqOHFOm6/vU9xDKK8P4Le3wCQboIZWlhG4pK3Jmi5Y=; b=RuJO9hFKrF4FaPGVOfxXWTFqmSKzptKYxCh1L4Av/t/lh/bDrYfIjWa7ktMBgvREXA1l/N2eDApAea7yaaWTxdOtQJW5bxt0xcPzZ6httXXpoELGNsibyjnDy1B6R9HsismhR/ClyXPfRsy9gZpXW4hQXVyo2K1mc077XwcPzw6EMWBFM/ah2NT+4Hczgm4HL7pvRFMi6oG7j0DEg741Rq+0P3CgoGFiFRFyXDv7ncckgtqtOz1168/3vYQbQI2Dqx2+cQ0k4RQhG32j9tEe3njpNvYLWsITRaX0FH0tfMAzqjnBO4u//vbjoGyAG1E17R+kQHS2kWJmI5q9XUzg4Q==",
+            "thread-topic": "export reports in CSV",
+            "thread-index": "AQHcmzowrG9akmvtnESnB3kunAHXzg==",
+            "message-id": " <WA0P291MB0339D03159CBF07A9C23197CE263A@WA0P291MB0339.POLP291.PROD.OUTLOOK.COM>",
+            "accept-language": "de-DE, en-US",
+            "content-language": "de-DE",
+            "x-ms-has-attach": "",
+            "x-ms-tnef-correlator": "",
+            "msip_labels": "",
+            "x-ms-exchange-messagesentrepresentingtype": "1",
+            "x-ms-publictraffictype": "Email",
+            "x-ms-traffictypediagnostic": "WA0P291MB0339:EE_|WA1P291MB0205:EE_",
+            "x-ms-office365-filtering-correlation-id": "d2ee9d08-cfc8-44d1-276e-08de69515332",
+            "x-microsoft-antispam": " BCL:0;ARA:14566002|31061999003|51005399006|461199028|15030799006|19110799012|15080799012|8062599012|8060799015|56899033|40105399003|3412199025|440099028|102099032;",
+            "x-microsoft-antispam-message-info": " pg4y7c7u6tMJ66DhagkOKx04KqyqqbQJ5amCUPQUCZWudyZ94c3AL6FvR/5GEmusgONkxH8Ws19CSvH8mrwzU70E3d1ysPCW5vv2/VwzNXFWHfMB1PR1nyXFke8aKi5pmjaOFp268W5NjZRMyxClRQOY4883VpEWO++YUSzqwhZgY4CYEguqccdzHC0LSMAO5yUbP7YJX7C97bcujBivWSrdjCEzh/JJw2oVZ/r1+IuGbp9gt1m+MSW8O6Kooo4O/yqaMgM+xHGGg35KwTmPyK5vbA1ocXpPNuXlrMmwzlH2J1hpJ/FWo73CWBEwdSo/+iVjp0MUQ5Ucom7mcdMYmRqKMUIHAH/vFnIB2UMkoE/LTJD4t+k3R4PJyUg+Dd08dR2ktk3j6MFfUG6ULoaQ5FFXHn1+HT4LjfP4JjvTlTf/kXXF7N9sdbTO7aSjzr2xGMUITFeyPJnOATAdYmMkl+tDgsYB2oIsBxuMQ4TWEXcRu5gbGhskzSJkve36sGoZfK8M0HbH+h+oeVqdDrCdVbLYSn3XmlC3eaXUWRSN5ktKZOxp1Ue7Vd4zdKRcOfQll2JtaH+2/8ug4dydk+jWVKdJ100X/pk2P64ozpHTCZq0GEJufxaohm8ZEDPzr+vSEH0iU9MFA08ZWWOlX7O+aHWNBlGcnpSNYGOshgdb59JZQ3bQpk+8R15DwI5H4D7dVy9BM9U/bs5JsqtFzxzQfPPKCm8FkNfGsr4qIDSNu+VA9F7oowRFJ3FAeqx9vNbSpG6C/4Z3Fenz3BRPH5UD4G2NGqSJspZyyr34gebcXN+ssE1KQPLo2AMTMm2VislIMLS88OXh41b0m+vTAzO5xWluLB10vbHoqFQW1in1I61pV2RC8nQ2gsMuXPluQj9ALoW43NbldnFHJYdb6Hm07a4mt5A6j2+R0zuavN3nv0xhUaB8/OtSENzHDfgAiYu85xQs9TrhYWz9LB1zlrBgcdsuNfbDrRK5ud9nTEC/3m0mubfRtmKPMrMg1n+OFngzdI4hYyL4y80HsNo/2kIEUC/GA/aHsfZGnDeKzkWj3Iw+pWAd68q85CQe89mLID1yHVyPdEuTXObHs9NU9AomcSdtn6oc4tC1WxgpfDMRXzhuedyu6/GkpXtKwZOJTNvqbFdcLATqGMh67djfDDnIO3GfNf/lJf4zC1KiZoXM2y+9SZG7WPEDfzrIYA9/oSisDM+ahg/o8L034sN0+YrOig==",
+            "x-ms-exchange-antispam-messagedata-chunkcount": "1",
+            "x-ms-exchange-antispam-messagedata-0": " lXLAbvLZUMRkFqVUqmAMeUeUyunI0pSjO8EHq9IpFPHusLDaAw2pNFvBFseF/mdCdp8Di2sdGYbepfQgHEReMzQpO8OtkEnXurzA5wDddgYop8XNd3tY50iG3HEBCgAzh7y+ihr+kiUAvs5hpxL5hixvQ5DiZ9zZ32cKq1hSTw7rOd6ymttQPu3IopKdLi16WvlKu99KxCySU99lbZkN7PPWsxPuwQGPNsl1LD0t4A9aYztqCNyto9EHqNeuFWEKdjqCxSEkOVjxtkwwaxzQGQTCkO/+HfcjZnidjDm6EM9ILD4cDdBITreGSBQdWhzpPIMenNn18msQCiwmv1kTxwyrAWCQth4XbhLhnF1BKBMp97g/2u4Ti7NMwpnMB+uJBIDia3kIak1FFHDtHi7uqiC2IKdHcZga7lfpEvffkM4tsFiQzJZffMyuplsriBXxELSQBMW0Th+zxt/aPqW8/jjWbzovf3Ax127aDtXr0RiFNUGrq3rdissp00thXQbaMCBIynwFHrzhAjiBYUHObp5VwFWfekLUSf1wybmJNsECwBq5UJif4fb/ty1z7lMchcYO0Se+gEkKzeaVaU9mIkoK3KKp1op4YfWsiKnx0GnkmeNJNwET8TkAhpOTjTRMN9fPxG3ZfaNn2dqDxjawfU+hycV8CM8Mn9ZH9BjqKbx+y/foSbVgRWOIksIHfGCyEPz7sAXB85oEXjaCqpY6rY5uvW4oIganHs9t3bHzMRdiGUpzSnFNC6IcNAMQ9TINoO7mYpv+6KEJqQAZMxgSx/85uNupmQyjUKhg0OtPBPHmGpnUgiZt0nuK8saUh7HVRC2Ki+XKiQn8YmLKmjzUSW1Gd5/OLptZJRrfPiN4k7HFSmVIrSMIm4Kn++U6LY8Jq0cW40onomokQ31aMKWAAabyjlwm9rEiNEXYFogVJbZBz8PIMKOprw1fKbJ7FqGHkXvXahpGsrTAPW4xzgcA4kgTiLsIg8k6X6t2nvdDL3d322EYtZLUdcoRpYljR7avb8pCLjWwAToT0KnexzqL52D5rAAelWFuAsZWp4IzuVHM5tDkCA3Z2t4WIL1AD4dmC2E486OgTdkF0i2YHH3w1f4Nqa2DHS9c+tDWzTSR5sUPRqWmdfkSe7fIjZWa3D2grAo3Su2RCoDtvorEGjA70Ljc685Wrx3Pagv6jcZuyDDYQrlGSeS35MWGCmeVZ/LDSLlvQb2HMT9zVdIo1bmJgrE807DfMafeTFKEqgsYgkCNoqQV+4K5WJngCLgxKuopb42W+oiVBMyS3/jGOn3wofISlNd5ibW+Iej5D/ogBDhbe2g9LJ/WRwTNPebyw8dq31yVW37g5CmygPygtxbm/O8RtK+edqJT6GJPTfBa8vaXCiXS70zRlJb5Hs7o2PryMgnI+zl1nFaQSmndHsN6i8TvyvhPUlMEhO9m8ZaUXyvMTNXsbIhxM4l1/EWNWIVV",
+            "content-type": "multipart/alternative;\tboundary=\"_000_WA0P291MB0339D03159CBF07A9C23197CE263AWA0P291MB0339POLP_\"",
+            "mime-version": "1.0",
+            "x-originatororg": "outlook.com",
+            "x-ms-exchange-crosstenant-authas": "Internal",
+            "x-ms-exchange-crosstenant-authsource": "WA0P291MB0339.POLP291.PROD.OUTLOOK.COM",
+            "x-ms-exchange-crosstenant-rms-persistedconsumerorg": "00000000-0000-0000-0000-000000000000",
+            "x-ms-exchange-crosstenant-network-message-id": "d2ee9d08-cfc8-44d1-276e-08de69515332",
+            "x-ms-exchange-crosstenant-originalarrivaltime": "11 Feb 2026 09:38:34.1783 (UTC)",
+            "x-ms-exchange-crosstenant-fromentityheader": "Hosted",
+            "x-ms-exchange-crosstenant-id": "84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa",
+            "x-ms-exchange-transport-crosstenantheadersstamped": "WA1P291MB0205",
+            "envelope-to": "<zeljko.alakovic@gmx.de>",
+            "ui-inboundreport": "unknown:2;M01:P0:sq5mIcPn4Dg=;fTu3nZizbvCYHX3p1P3c1DMJ2ADG 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 Kpw=="
+          },
+          "attributes": {
+            "uid": 31
+          },
+          "from": "Zeljko Alakovic <zeljkoalakovic997@outlook.com>",
+          "to": "\"zeljko.alakovic@gmx.de\" <zeljko.alakovic@gmx.de>",
+          "subject": "export reports in CSV",
+          "date": "Wed, 11 Feb 2026 09:38:34 +0000"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Email Trigger (IMAP)": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "PUT today/count",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Counter": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUT today/count": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "6e7dffb9-6dfd-496d-a2cb-d156010c338d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f59f3d1403012cd5922cca7caf200576b096d713c79dcc520e2d019bb14f6b37"
+  },
+  "id": "FQmDSQHMnQaseYwyx0aVb",
+  "tags": []
+}
