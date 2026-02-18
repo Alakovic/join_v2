@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 0 20px;
+    overflow-x: auto;
 }
 
 .board_content > div {
@@ -81,7 +82,7 @@
     border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
     margin-top: 5px;
-    width: 99%;
+    width: 90%;
 }
 
 .ticket :hover{
@@ -258,7 +259,7 @@
 
 .active_span:before {
     content: url("../assets/icons/board_icon_gray.svg");
-    background-color: var(--menuHoverColor);
+   
     display: inline-block;
     vertical-align: middle;
     margin-right: 8px;

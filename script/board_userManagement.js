@@ -303,7 +303,7 @@ function calculateMenuPosition(event, menu) {
  * @returns {string} HTML string for the status menu.
  */
 function generateStatusMenuHTML(taskId, currentStatus) {
-    let statuses = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+    let statuses = ['triage','toDo', 'inProgress', 'awaitFeedback', 'done'];
     let menu = '<strong>Move to:</strong><br>';
     let currentIndex = statuses.indexOf(currentStatus);
 
