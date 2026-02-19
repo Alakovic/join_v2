@@ -108,6 +108,14 @@ function getImage(type) {
   }
 }
 
+function getKILogo(type){
+  if(type === "member") {
+    return "";
+  }else {
+    return "../assets/icons/KI generiert.svg"
+  }
+}
+
 function getCreatorName(element) {
   return element.creatorName || "Unknown";
 }
@@ -136,11 +144,13 @@ function generateTaskOverlay(element) {
   let creatorName = getCreatorName(element);
   let img = getImage(element.creatorType);
   let creatorAction = getCreatorAction(element);
+  let kiAnimation = getKILogo(element.creatorType);
 
   return `
     <div  class="ticket_overlay">
     <div class="overlay_header">
     <div class="category_overlay"><span style="background-color: ${bg_color};" >${element.category}</span></div>
+    <img src="${kiAnimation}"> 
     <div class="x" onclick="closeOverlay()"><img src="../assets/icons/x.png" alt="X"></div>
     </div>
     <div class="title_overlay"><h1>${element.title}</h1></div>
