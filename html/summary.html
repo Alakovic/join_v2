@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -23,7 +23,7 @@
             ><img src="../assets/icons/help.svg" alt="Help"
           /></a>
           <div
-            onclick="toggleProfileMenu ()"
+            onclick="toggleProfileMenu()"
             class="icon-wrapper"
             id="icon-wrapper"
           >
@@ -69,7 +69,10 @@
               </li>
               <li>
                 <a href="board.html">
-                  <img src="../assets/icons/board_icon_gray.svg" alt="Join Logo" />
+                  <img
+                    src="../assets/icons/board_icon_gray.svg"
+                    alt="Join Logo"
+                  />
                   <span>Board</span>
                 </a>
               </li>
@@ -92,14 +95,15 @@
       </section>
       <section class="main_wrapper">
         <div class="user-greeting" id="user-greeting">
-            <h1>
-              <span class="greet" id="greet">Good morning,</span
-              ><span class="user-name" id="user_name"></span>
-            </h1>
-          </div>
-          <div class="stats">
-            <div class="task-overview-top">
-             <div class="urgent_task"> <a href="board.html" class="urgent-tasks">
+          <h1>
+            <span class="greet" id="greet">Good morning,</span
+            ><span class="user-name" id="user_name"></span>
+          </h1>
+        </div>
+        <div class="stats">
+          <div class="task-overview-top">
+            <div class="urgent_task">
+              <a href="board.html" class="urgent-tasks">
                 <div class="urgent-tasks-left">
                   <div class="task-card-head">
                     <img
@@ -115,18 +119,22 @@
                   <h4 id="dueDate">-- --, ----</h4>
                   <p>Upcoming Deadline</p>
                 </div>
-              </a></div>
-              <div class="email_req"> <a href="board.html" class="task-card" id="in-triage">
+              </a>
+            </div>
+            <div class="email_req">
+              <a href="board.html" class="task-card" id="in-triage">
                 <div class="task-card-head">
-                  <img
-                    class="summary_icon"
-                    src="../assets/icons/KI.svg"
-                  />
+                  <img class="summary_icon" src="../assets/icons/KI.svg" />
                   <h3 class="KI" id="in-triage-number">5</h3>
                 </div>
-                <p>Email <br> Request</p>
-              </a></div>
-              <div class="board_task"><a href="board.html" class="task-card" id="in-board">
+                <p>
+                  Email <br />
+                  Request
+                </p>
+              </a>
+            </div>
+            <div class="board_task">
+              <a href="board.html" class="task-card" id="in-board">
                 <div class="task-card-head">
                   <img
                     class="summary_icon"
@@ -134,72 +142,189 @@
                   />
                   <h3 id="in-board-number">5</h3>
                 </div>
-                <p>Task in <br> Board</p>
-              </a></div> 
-            </div>
-            <div class="task-overview-bottom">
-              <div class="toDo  padding_right">
-                <a href="board.html" class="task-card">
-                  <div class="task-card-head">
-                    <img
-                      class="summary_icon"
-                      src="../assets/icons/toDo.svg"
-                    />
-                    <h3 id="to-do-number">1</h3>
-                  </div>
-                  <p>Tasks <br> To-do</p>
-                </a>
-              </div>
-              <div class="inProgress  padding_right" >
-                   <a href="board.html" class="task-card">
-                  <div class="task-card-head">
-                    <img
-                      class="summary_icon"
-                      src="../assets/icons/TaskInProgress.svg"
-                    />
-                    <h3 id="in-progress-number">0</h3>
-                  </div>
-                  <p>
-                    Task in <br />
-                    Progress
-                  </p>
-                </a>
-              </div>
-              <div class="aFeedback  padding_right">
-                <a href="board.html" class="task-card">
-                  <div class="task-card-head">
-                    <img
-                      class="summary_icon"
-                      src="../assets/icons/awaitFeedback.svg"
-                    />
-                    <h3 id="feedback-number">0</h3>
-                  </div>
-                  <p>
-                    Awaiting <br />
-                    Feedback
-                  </p>
-                </a>
-              </div>
-              <div class="taskDone">
-                <a href="board.html" class="task-card">
-                  <div class="task-card-head">
-                    <img
-                      class="summary_icon"
-                      src="../assets/icons/taskSDone.svg"
-                    />
-                    <h3 id="done-number">0</h3>
-                  </div>
-                  <p>Tasks <br> Done</p>
-                </a>
-
-              </div>
+                <p>
+                  Task in <br />
+                  Board
+                </p>
+              </a>
             </div>
           </div>
+          <div class="task-overview-bottom">
+            <div class="toDo ">
+              <a href="board.html" class="task-card">
+                <div class="task-card-head">
+                  <img class="summary_icon" src="../assets/icons/toDo.svg" />
+                  <h3 id="to-do-number">1</h3>
+                </div>
+                <p>
+                  Tasks <br />
+                  To-do
+                </p>
+              </a>
+            </div>
+            <div class="inProgress">
+              <a href="board.html" class="task-card">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/TaskInProgress.svg"
+                  />
+                  <h3 id="in-progress-number">0</h3>
+                </div>
+                <p>
+                  Task in <br />
+                  Progress
+                </p>
+              </a>
+            </div>
+            <div class="aFeedback t">
+              <a href="board.html" class="task-card">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/awaitFeedback.svg"
+                  />
+                  <h3 id="feedback-number">0</h3>
+                </div>
+                <p>
+                  Awaiting <br />
+                  Feedback
+                </p>
+              </a>
+            </div>
+            <div class="taskDone">
+              <a href="board.html" class="task-card">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/taskSDone.svg"
+                  />
+                  <h3 id="done-number">0</h3>
+                </div>
+                <p>
+                  Tasks <br />
+                  Done
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="stats_mobile">
+          <div class="urgent_task">
+            <a href="board.html" class="urgent-tasks-mobile">
+              <div class="urgent-tasks-left">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/urgent_icon.svg"
+                  />
+                  <h3 id="urgent-number-mobile">0</h3>
+                </div>
+                <p>Tasks Urgent</p>
+              </div>
+              <div class="divider-mobile"></div>
+              <div class="urgent-tasks-right">
+                <h4 id="dueDate-mobile">-- --, ----</h4>
+                <p>Upcoming Deadline</p>
+              </div></a
+            >
+          </div>
+          <div class="mobile_first">
+            <div class="toDo">
+              <a href="board.html" class="task-card">
+                <div class="task-card-head">
+                  <img class="summary_icon" src="../assets/icons/toDo.svg" />
+                  <h3 id="to-do-number-mobile">0</h3>
+                </div>
+                <p>
+                  Tasks <br />
+                  To-do
+                </p>
+              </a>
+            </div>
+            <div class="email_req">
+              <a href="board.html" class="task-card" id="in-triage">
+                <div class="task-card-head">
+                  <img class="summary_icon" src="../assets/icons/KI.svg" />
+                  <h3 class="KI" id="in-triage-number-mobile">0</h3>
+                </div>
+                <p>
+                  Email <br />
+                  Request
+                </p>
+              </a>
+            </div>
+          </div>
+          <div class="mobile_second">
+            <div class="board_task">
+              <a href="board.html" class="task-card" id="in-board">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/taskInBoard.svg"
+                  />
+                  <h3 id="in-board-number-mobile">0</h3>
+                </div>
+                <p>
+                  Task in <br />
+                  Board
+                </p>
+              </a>
+            </div>
+            <div class="inProgress">
+              <a href="board.html" class="task-card">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/TaskInProgress.svg"
+                  />
+                  <h3 id="in-progress-number-mobile">0</h3>
+                </div>
+                <p>
+                  Task in <br />
+                  Progress
+                </p>
+              </a>
+            </div>
+          </div>
+          <div class="mobile_third">
+            <div class="aFeedback">
+              <a href="board.html" class="task-card">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/awaitFeedback.svg"
+                  />
+                  <h3 id="feedback-number-mobile">0</h3>
+                </div>
+                <p>
+                  Awaiting <br />
+                  Feedback
+                </p>
+              </a>
+            </div>
+            <div class="taskDone">
+              <a href="board.html" class="task-card">
+                <div class="task-card-head">
+                  <img
+                    class="summary_icon"
+                    src="../assets/icons/taskSDone.svg"
+                  />
+                  <h3 id="done-number-mobile">0</h3>
+                </div>
+                <p>
+                  Tasks <br />
+                  Done
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </body>
   <script src="../script/header.js"></script>
-    <script src="../script/login.js"></script>
-    <script src="../script/summary.js"></script>
-    <script src="../script/script.js"></script>
+  <script src="../script/login.js"></script>
+  <script src="../script/summary.js"></script>
+  <script src="../script/script.js"></script>
 </html>
