@@ -11,7 +11,7 @@
 
   .active_span:before {
     content: url("../assets/icons/menuBlue.svg");
-    margin-right:0; 
+    margin-right: 0;
   }
 }
 
@@ -170,10 +170,16 @@
   }
 
   .ticket_overlay {
-    padding: 10px;
+    height: 80vh; 
+    display: flex;
+    flex-direction: column;
   }
 
-  .overlay_header{
+  .delete_edit {
+    margin-top: auto;
+  }
+
+  .overlay_header {
     padding-top: 10px;
     padding-bottom: 10px;
   }
@@ -196,7 +202,6 @@
   .title_overlay h1 {
     font-size: 25px;
   }
-
 }
 
 @media (max-width: 350px) {

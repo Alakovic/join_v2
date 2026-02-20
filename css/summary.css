@@ -4,7 +4,6 @@
 
 .main_wrapper {
   width: calc(100% - 200px);
-  overflow: hidden;
   flex-direction: column;
   display: flex;
   padding: 70px 110px;
@@ -57,22 +56,6 @@ a {
   padding: 10px;
 }
 
-.urgent-tasks:hover {
-  background-color: white;
-  color: #4589ff;
-  border-radius: 0px 30px 30px 30px;
-  cursor: pointer;
-}
-
-.urgent-tasks:hover h4 {
-  font-size: 30px;
-  transition: all 0.3s ease-in-out;
-}
-
-.urgent-tasks:hover .divider {
-  background-color: #4589ff;
-}
-
 .urgent-tasks h3 {
   font-size: 48px;
   transition: all 0.3s ease-in-out;
@@ -80,9 +63,6 @@ a {
 .urgent-tasks h4 {
   font-size: 23px;
   transition: all 0.3s ease-in-out;
-}
-.urgent-tasks:hover .summary_icon {
-  width: 100px;
 }
 
 .urgent-tasks-right p {
@@ -131,20 +111,6 @@ a {
   padding: 10px 20px;
 }
 
-.task-card:hover {
-  background-color: white;
-  background-color: #4589ff;
-  border-radius: 0px 30px 30px 30px;
-  cursor: pointer;
-  width: 170px;
-  height: 180px;
-}
-
-.task-card:hover p,
-.task-card:hover h3 {
-  color: white;
-}
-
 .task-card h3 {
   font-size: 48px;
 }
@@ -176,20 +142,6 @@ a {
   height: 56px;
   background-color: white;
   border-radius: 50%;
-}
-
-.icon-wrapper:hover {
-  cursor: pointer;
-}
-
-.active_span:before {
-  content: url("../assets/icons/summary_icon_gray.svg");
-  background-color: var(--menuHoverColor);
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-  align-items: center;
-  gap: 8px;
 }
 
 .active_span {
@@ -276,9 +228,6 @@ a {
 }
 
 @media (max-width: 910px) {
-  body {
-    overflow: hidden;
-  }
   .user-greeting {
     display: flex;
     justify-content: center;
@@ -294,6 +243,56 @@ a {
 
   .task-overview-top {
     padding: 50px 0px 0px 0px;
+  }
+}
+
+@media (min-width: 791px) {
+  .urgent-tasks:hover {
+    background-color: white;
+    color: #4589ff;
+    border-radius: 0px 30px 30px 30px;
+    cursor: pointer;
+  }
+
+  .urgent-tasks:hover h4 {
+    font-size: 30px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .urgent-tasks:hover .divider {
+    background-color: #4589ff;
+  }
+
+  .urgent-tasks:hover .summary_icon {
+    width: 100px;
+  }
+
+  .task-card:hover {
+    background-color: white;
+    background-color: #4589ff;
+    border-radius: 0px 30px 30px 30px;
+    cursor: pointer;
+    width: 170px;
+    height: 180px;
+  }
+
+  .task-card:hover p,
+  .task-card:hover h3 {
+    color: white;
+  }
+
+  .icon-wrapper:hover {
+    cursor: pointer;
+  }
+
+  .active_span:before {
+    content: url("../assets/icons/summary_icon_gray.svg");
+    background-color: var(--menuHoverColor);
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    align-items: center;
+    gap: 8px;
   }
 }
 
@@ -334,23 +333,6 @@ a {
     border-radius: 8px;
   }
 
-  .urgent-tasks-mobile:hover {
-    background-color: white;
-    color: #4589ff;
-    border-radius: 0px 30px 30px 30px;
-    cursor: pointer;
-    scale: 1.1;
-  }
-
-  .urgent-tasks-mobile:hover .divider-mobile {
-    background-color: #4589ff;
-  }
-
-  .urgent-tasks-mobile:hover h4 {
-    font-size: 25px;
-    transition: all 0.3s ease-in-out;
-  }
-
   .mobile_first,
   .urgent_task,
   .mobile_second,
@@ -386,7 +368,7 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
+    padding: 15px 30px;
   }
 
   .summary_icon {
@@ -433,7 +415,7 @@ a {
 
 @media (max-width: 390px) {
   .main_wrapper {
-    padding: 10px;
+    padding: 10px 10px 100px 10px;
   }
 }
 
