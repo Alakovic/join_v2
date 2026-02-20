@@ -149,8 +149,8 @@ function generateTaskOverlay(element) {
   return `
     <div  class="ticket_overlay">
     <div class="overlay_header">
-    <div class="category_overlay"><span style="background-color: ${bg_color};" >${element.category}</span></div>
-    <img src="${kiAnimation}"> 
+    <div class="category_overlay"><span style="background-color: ${bg_color};" >${element.category}</span>
+    <img src="${kiAnimation}"> </div>
     <div class="x" onclick="closeOverlay()"><img src="../assets/icons/x.png" alt="X"></div>
     </div>
     <div class="title_overlay"><h1>${element.title}</h1></div>

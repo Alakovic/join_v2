@@ -63,7 +63,8 @@ async function init() {
     greetUser();
   }
   pushToTask();
-  greetTransition();
+  handleResize();
+  window.addEventListener("resize", handleResize);
 }
 
 /**
@@ -118,6 +119,17 @@ function greetUser() {
   }
   greetElement.textContent = greeting;
 }
+
+function handleResize() {
+  const greeting = document.getElementById("user-greeting");
+
+  if (window.innerWidth <= 910) {
+    greeting.classList.add("greet_transition");
+  } else {
+    greeting.classList.remove("greet_transition");
+  }
+}
+
 
 /**
  * puts a profile for the user on the API

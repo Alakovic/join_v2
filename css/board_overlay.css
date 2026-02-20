@@ -93,6 +93,12 @@
   padding-bottom: 20px;
 }
 
+.category_overlay{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .category_overlay span {
   padding: 5px 15px;
   border-radius: 10px;
@@ -138,7 +144,6 @@
 
 .creator_name {
   color: black !important;
-  font-weight: normal !important;
   text-wrap: nowrap;
 }
 

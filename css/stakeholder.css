@@ -12,8 +12,9 @@ body {
 .headline,
 .content,
 .b,
-footer {
+footer, .header_content {
   max-width: 1920px;
+  margin: 0 auto;
 }
 
 header {
@@ -47,6 +48,7 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 10px 110px;
+  width: 100%;
 }
 
 .arrow a img:hover {
@@ -56,6 +58,11 @@ header {
 .request p {
   font-size: 18px;
   color: #4589ff;
+}
+
+.arrow img {
+  width: 30px;   
+  height: 30px;
 }
 
 .headline {
@@ -85,6 +92,7 @@ h1 {
   align-items: center;
   justify-content: flex-start;
   gap: 50px;
+  width: 100%;
 }
 
 .content_left {
@@ -124,6 +132,7 @@ h1 {
   align-content: center;
   justify-content: left;
   padding: 0px 110px;
+  width: 100%;
 }
 
 .b img {

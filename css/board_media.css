@@ -181,6 +181,7 @@
   .creator_overlay {
     padding-top: 10px;
     gap: 8px;
+    flex-wrap: wrap;
   }
 
   .date_overlay {
